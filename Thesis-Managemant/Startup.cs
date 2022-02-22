@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Thesis_Managemant.Data;
+using Thesis_Managemant.Models;
 
 namespace Thesis_Managemant
 {
@@ -31,8 +32,48 @@ namespace Thesis_Managemant
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services
+              .AddDbContext<ApplicationDbContext>(options =>
+                  options.UseSqlServer(
+                      Configuration.GetConnectionString("DefaultConnection")));
+
+            services
+                .AddDatabaseDeveloperPageExceptionFilter();
+
+            //services
+            //    .AddDefaultIdentity<MyIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Configure the ASP.NET Identity 
+            services
+                .AddIdentity<MyIdentityUser, MyIdentityRole>(options =>
+                {
+                    // Sign-In Policy
+                    options.SignIn.RequireConfirmedAccount = true;
+
+                    // Password Policy
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequiredLength = 8;
+
+                    // User Policy
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Configure the Identity Application Level Cookie
+            services
+                .ConfigureApplicationCookie(options =>
+                {
+                    options.LoginPath = "/Identity/Account/Login";
+                    options.LogoutPath = "/Identity/Account/Logout";
+                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                    options.SlidingExpiration = true;
+                });
             services.AddRazorPages();
         }
 
