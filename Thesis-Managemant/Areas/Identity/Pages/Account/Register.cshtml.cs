@@ -78,14 +78,17 @@ namespace Thesis_Managemant.Areas.Identity.Pages.Account
 
 
             [Display(Name = "Is Admin User?")]
+            [Required]
             public bool IsAdminUser { get; set; }
 
 
             [Display(Name = "Is student User?")]
+            [Required]
             public bool IsStudentUser { get; set; }
 
 
             [Display(Name = "Is Faculty User?")]
+            [Required]
             public bool IsFacultyUser { get; set; }
         }
 
@@ -104,12 +107,11 @@ namespace Thesis_Managemant.Areas.Identity.Pages.Account
                 var user = new MyIdentityUser { 
                     UserName = Input.Email,
                     Email = Input.Email,
-                    DisplayName =Input.DisplayName,
+                    DisplayName = Input.DisplayName,
                     DateOfBirth = Input.DateOfBirth,
                     IsAdminUser = Input.IsAdminUser,
                     IsStudentUser = Input.IsStudentUser,
                     IsFacultyUser = Input.IsFacultyUser
-
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

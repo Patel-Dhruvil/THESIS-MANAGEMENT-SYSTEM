@@ -11,7 +11,6 @@ namespace Thesis_Managemant.Data
     public class ApplicationDbContext
         : IdentityDbContext<MyIdentityUser, MyIdentityRole, Guid>
     {
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -16,7 +16,7 @@ namespace Thesis_Managemant.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
+                .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -177,6 +177,12 @@ namespace Thesis_Managemant.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsAdminUser")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFacultyUser")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStudentUser")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
