@@ -10,7 +10,7 @@ using Thesis_Managemant.Data;
 namespace Thesis_Managemant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220222051210_initial")]
+    [Migration("20220222062223_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
